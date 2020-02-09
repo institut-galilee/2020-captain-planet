@@ -1,12 +1,3 @@
-/*
- * Author: Elecrow engle
- * Date:7/12/2017
- * IDE V1.8.2 
- * Email:engle@elecrow.com
- * Function:
- */
-// Pin 13 has an LED connected on most Arduino boards.
-// give it a name:
 const int LED2_Green = 2;
 const int LED5_Yellow = 5;
 const int LED10_Red = 10;
