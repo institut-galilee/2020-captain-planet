@@ -12,10 +12,10 @@
 
 ## images :
 ### sketch :
-![sketch](https://github.com/institut-galilee/2020-captain-planet/edit/master/lab/2/report/1/sketch.png)
+![sketch](https:\\github.com\institut-galilee\2020-captain-planet\edit\master\lab\2\report\1\sketch.png)
 
 ### schematic design :
-![schematic](https://github.com/institut-galilee/2020-captain-planet/edit/master/lab/2/report/1/schematic.png)
+![schematic](https:\\github.com\institut-galilee\2020-captain-planet\edit\master\lab\2\report\1\schematic.png)
 
 ## code :
 ### potentiomètre
