@@ -79,17 +79,13 @@ void loop()
   Serial.println(localHum);
   delay(2000);
 }
-
-/***************************************************
-* Get indoor Temp/Hum data
-****************************************************/
 void getDHT()
 {
   float tempIni = localTemp;
   float humIni = localHum;
   localTemp = dht.readTemperature();
   localHum = dht.readHumidity();
-  if (isnan(localHum) || isnan(localTemp))   // Check if any reads failed and exit early (to try again).
+  if (isnan(localHum) || isnan(localTemp))   
   {
     localTemp = tempIni;
     localHum = humIni;
