@@ -12,7 +12,7 @@
 
 ## images :
 ### sketch :
-![sketch](https:\\github.com\institut-galilee\2020-captain-planet\edit\master\lab\2\report\1\sketch.png)
+<img src="https:\\github.com\institut-galilee\2020-captain-planet\edit\master\lab\2\report\1\sketch.png" width="800" /> ![](https:\\github.com\institut-galilee\2020-captain-planet\edit\master\lab\2\report\1\sketch.png)
 
 ### schematic design :
 ![schematic](https:\\github.com\institut-galilee\2020-captain-planet\edit\master\lab\2\report\1\schematic.png)
