@@ -2,7 +2,7 @@
 pour les branchements, nous avons suivi ce tutoriel :: https://create.arduino.cc/projecthub/SAnwandter1/programming-8x8-led-matrix-23475a, c'est assez simple et nous avons également utilisé le code mentionné, nous l'avons un peu changé pour l'adapter à l'objectif de notre exercice
 ## images :
 ### emoji aleatoire  :
- ![emoji aleatoire](emoji.png)
+ ![emoji aleatoire](emoji.jpg)
 
 ### affichage du nom de groupe :
 ![affichage du nom de groupe](captain_planet.gif)
