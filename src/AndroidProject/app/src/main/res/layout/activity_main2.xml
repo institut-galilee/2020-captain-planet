@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tool:context=".MainActivity"
+    android:fitsSystemWindows="true"
+    >
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:minHeight="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleTextColor="@android:color/white"
+        android:background="@android:color/holo_green_light"
+        >
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/textViewDesc1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Temperature"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="20dp" />
+
+    <WebView
+        android:id="@+id/webview1"
+        android:layout_width="394dp"
+        android:layout_height="258dp"
+    >
+
+    </WebView>
+
+    <TextView
+        android:id="@+id/textViewDesc2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Humidité"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="20dp" />
+
+    <WebView
+        android:id="@+id/webview2"
+        android:layout_width="394dp"
+        android:layout_height="258dp"
+     />
+
+    <TextView
+        android:id="@+id/textViewDesc3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PM2.5"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="20dp" />
+
+    <WebView
+        android:id="@+id/webview3"
+        android:layout_width="394dp"
+        android:layout_height="258dp"
+>
+
+    </WebView>
+
+</LinearLayout>
+    </ScrollView>
