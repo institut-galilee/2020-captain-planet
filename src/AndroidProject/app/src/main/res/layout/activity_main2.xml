@@ -4,72 +4,122 @@
     xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:fillViewport="true">
-<LinearLayout
+    android:fillViewport="true"
+    >
+<RelativeLayout
+    android:paddingBottom="10dp"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tool:context=".MainActivity"
     android:fitsSystemWindows="true"
+    android:background="@color/LightGray"
     >
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:minHeight="?attr/actionBarSize"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:titleTextColor="@android:color/white"
-        android:background="@android:color/holo_green_light"
+    <androidx.cardview.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/temperature_web"
+        android:layout_marginTop="10dp"
+        android:layout_width="350dp"
+        android:layout_height="220dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        card_view:cardElevation="10dp"
+        card_view:cardCornerRadius="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
         >
+        <WebView
+            android:id="@+id/webview1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+        </WebView>
 
 
-    </androidx.appcompat.widget.Toolbar>
+    </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/textViewDesc1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Temperature"
-        android:textColor="@android:color/holo_green_dark"
-        android:textSize="20dp" />
 
-    <WebView
-        android:id="@+id/webview1"
-        android:layout_width="394dp"
-        android:layout_height="258dp"
-    >
 
-    </WebView>
+    <androidx.cardview.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/humidity_web"
+        android:layout_width="350dp"
 
-    <TextView
-        android:id="@+id/textViewDesc2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Humidité"
-        android:textColor="@android:color/holo_green_dark"
-        android:textSize="20dp" />
+        android:layout_height="220dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/temperature_web"
+        android:layout_centerHorizontal="true"
+        card_view:cardElevation="10dp"
+        card_view:cardCornerRadius="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground">
 
-    <WebView
-        android:id="@+id/webview2"
-        android:layout_width="394dp"
-        android:layout_height="258dp"
-     />
 
-    <TextView
-        android:id="@+id/textViewDesc3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="PM2.5"
-        android:textColor="@android:color/holo_green_dark"
-        android:textSize="20dp" />
+        <WebView
+            android:id="@+id/webview2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
 
-    <WebView
-        android:id="@+id/webview3"
-        android:layout_width="394dp"
-        android:layout_height="258dp"
->
+    </androidx.cardview.widget.CardView>
 
-    </WebView>
 
-</LinearLayout>
+    <androidx.cardview.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/air_quality_web"
+        android:layout_width="350dp"
+
+        android:layout_marginTop="10dp"
+        android:layout_height="220dp"
+        android:layout_below="@id/humidity_web"
+        android:layout_centerHorizontal="true"
+        card_view:cardElevation="10dp"
+        card_view:cardCornerRadius="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground">
+
+
+
+        <WebView
+            android:id="@+id/webview3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+        </WebView>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/location_web"
+        android:layout_width="350dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="220dp"
+        android:layout_below="@id/air_quality_web"
+        android:layout_centerHorizontal="true"
+        card_view:cardElevation="10dp"
+        card_view:cardCornerRadius="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground">
+
+
+
+        <WebView
+            android:id="@+id/webview4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+        </WebView>
+    </androidx.cardview.widget.CardView>
+
+
+
+</RelativeLayout>
     </ScrollView>
