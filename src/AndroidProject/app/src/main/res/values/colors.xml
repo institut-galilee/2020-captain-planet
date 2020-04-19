@@ -37,7 +37,7 @@
 
     <color name="Safe">#229826</color>
     <color name="Hazardous">#409EF1</color>
-    <color name="Dangerous">#fc535352</color>
+    <color name="Dangerous">#FCB80707</color>
 
 
     <!-- background colors for the slides -->

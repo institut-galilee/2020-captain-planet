@@ -1,8 +1,13 @@
 package com.example.captainplanet;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.IntentService;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +15,16 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.work.Data;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.Worker;
+import androidx.work.WorkerParameters;
+import androidx.work.Constraints;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
+import androidx.work.Worker;
+import androidx.work.WorkerParameters;
+
 import android.content.Intent;
 import android.widget.Toast;
 
@@ -26,6 +41,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+import java.util.concurrent.TimeUnit;
+
+//import io.reactivex.Scheduler;
+
 public class MainActivity extends AppCompatActivity
 {
     CountDownTimer countDownTimer;
@@ -34,6 +54,7 @@ public class MainActivity extends AppCompatActivity
     TextView air_quality_text,temperature_text,humidity_text,ppm_indicator,h_indicator,f_indicator,c_indicator,temperature_text_f;
     Button b1,b2;
     androidx.cardview.widget.CardView danger_level_card;
+    long timePeriod  =3000;
     ImageView death_image,safety_image,harard_image;
     TextView level_indicator;
     ProgressBar progress_bar,ppm_progress_bar,temp_progress_bar ,humi_progress_bar;
@@ -43,21 +64,19 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         b2=findViewById(R.id.button2);
-        //Toolbar toolbar = findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+
         loadWidgets();
-        usingCountDownTimer();
-        //getAirQualityRecord();
-        //getHumidityRecord();
-        //getTemperatureRecord();
-       // getAirQualityfeeds();
-        //getAirQuality();
-        //getHumidity();
-        //getTemperature();
-        //getSupportActionBar().setTitle("Résultats capturés");
-       // getThingspeakData();
+
+
+       WorkManager mWorkManager = WorkManager.getInstance();
+       PeriodicWorkRequest mPerdiodicWorkRequest =new  PeriodicWorkRequest.Builder(NotificationsWorker.class,15, TimeUnit.MINUTES).build();
+       mWorkManager.enqueue(mPerdiodicWorkRequest);
+
+
+         usingCountDownTimer();
+         //startService();
+
 
 
     }
@@ -71,6 +90,7 @@ public class MainActivity extends AppCompatActivity
                 getAirQualityRecord();
                 getHumidityRecord();
                 getTemperatureRecord();
+
                 //Toast.makeText(getApplicationContext(),"i ran",Toast.LENGTH_LONG).show();
             }
 
@@ -145,7 +165,10 @@ public class MainActivity extends AppCompatActivity
         danger_level_card.setCardBackgroundColor(getResources().getColor(R.color.Dangerous));
         death_image.setVisibility(View.VISIBLE);
         safety_image.setVisibility(View.INVISIBLE);
-        level_indicator.setText("Deadly");
+        level_indicator.setText("Dangerous");
+
+    }
+    public void setModerateDangerLevel(){
 
     }
     public void setHazardLevel(){
@@ -414,14 +437,16 @@ public class MainActivity extends AppCompatActivity
                      for(int i=array.length()-1;i>=0;i--) {
                         JSONObject object1=array.getJSONObject(i);
                         if(!object1.getString("field1").equals("null")){
-                            ppm_progress_bar.setVisibility(View.INVISIBLE);
-                            air_quality_text.setText(object1.getString("field1"));
-                            ppm_indicator.setVisibility(View.VISIBLE);
                             float f = Float.parseFloat(object1.getString("field1"));
 
-                            if(f < 100){
+                            ppm_progress_bar.setVisibility(View.INVISIBLE);
+                            air_quality_text.setText(new DecimalFormat("###.###").format(f));
+                            ppm_indicator.setVisibility(View.VISIBLE);
+
+
+                            if(f <3){
                              setSafetyLevel();
-                            }else if (f >300){
+                            }else if (f >3){
                                 setDangerousLevel();
                             }
                             //Toast.makeText(getApplicationContext(),""+object1.getString("field1"),Toast.LENGTH_LONG).show();
@@ -460,12 +485,17 @@ public class MainActivity extends AppCompatActivity
                     for(int i=array.length()-1;i>=0;i--) {
                         JSONObject object1=array.getJSONObject(i);
                         if(!object1.getString("field2").equals("null")){
+                            float f = Float.parseFloat(object1.getString("field2"));
                             temp_progress_bar.setVisibility(View.INVISIBLE);
-                            temperature_text.setText(object1.getString("field2"));
+                            temperature_text.setText(new DecimalFormat("###.###").format(f));
                             c_indicator.setVisibility(View.VISIBLE);
-                            temperature_text_f.setText(updateDangerLevel(Float.parseFloat(object1.getString("field2"))));
+                            f = Float.parseFloat(fromCelciusToFeh(Float.parseFloat(object1.getString("field2"))));
+                            temperature_text_f.setText(new DecimalFormat("###.###").format(f));
                             f_indicator.setVisibility(View.VISIBLE);
-                            //Toast.makeText(getApplicationContext(),""+object1.getString("field1"),Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getApplicationContext(),""+
+                            if(f<10 || f>30){
+                                setDangerousLevel();
+                            }
                             break ;
                         }
 
@@ -502,10 +532,14 @@ public class MainActivity extends AppCompatActivity
                     for(int i=array.length()-1;i>=0;i--) {
                         JSONObject object1=array.getJSONObject(i);
                         if(!object1.getString("field3").equals("null")){
+                            float f = Float.parseFloat(object1.getString("field3"));
                             humi_progress_bar.setVisibility(View.INVISIBLE);
-                            humidity_text.setText(object1.getString("field3"));
+                            humidity_text.setText(new DecimalFormat("###.###").format(f));
                             h_indicator.setVisibility(View.VISIBLE);
                             //Toast.makeText(getApplicationContext(),""+object1.getString("field1"),Toast.LENGTH_LONG).show();
+                            if(f<30 || f>50){
+                                setDangerousLevel();
+                            }
                             break ;
                         }
 
@@ -531,7 +565,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     //update the danger level
-    public String updateDangerLevel(float c){
+    public String fromCelciusToFeh(float c){
         return ""+(((c*9)/5)+32);
     }
     @Override
@@ -543,7 +577,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onStart(){
         super.onStart();
-        usingCountDownTimer();
+        //usingCountDownTimer();
 
     }
     @Override
@@ -555,5 +589,54 @@ public class MainActivity extends AppCompatActivity
             idk.printStackTrace();
 
         }
+    }
+ /*class NotificationsWorker extends Worker {
+     public NotificationsWorker(
+             @NonNull Context context,
+             @NonNull WorkerParameters params) {
+         super(context, params);
+     }
+
+     @Override
+     public Result doWork() {
+         // Do the work here--in this case, upload the images.
+        // usingCountDownTimer();
+         Toast.makeText(getApplicationContext(),"im in the background",Toast.LENGTH_SHORT).show();
+
+         // Indicate whether the task finished successfully with the Result
+         return Result.success();
+     }
+
+
+
+ }*/
+
+
+
+ public class NotificationsService extends IntentService{
+        public NotificationsService (String name){
+            super("my worker service");
+        }
+     @Override
+     public IBinder onBind(Intent intent) {
+         return null;
+     }
+     @Override
+     public int onStartCommand(Intent intent, int flags, int startId) {
+
+         return super.onStartCommand(intent, flags, startId);
+     }
+        @Override
+        protected void onHandleIntent(Intent myIntent){
+
+          synchronized (this){
+              usingCountDownTimer();
+          }
+        }
+
+ }
+    public void startService(){
+        Intent mIntent= new Intent(getApplicationContext(),NotificationsService.class);
+        startService(mIntent);
     }
 }
