@@ -3,6 +3,7 @@
 ### Liste des activités :
 
 1. **Période de temps :**  **Branchement des capteurs :**    
+   1. **connaissances acquises :**
 
 1. **Période de temps :**  **Récupération des données des capteurs :** 
 
