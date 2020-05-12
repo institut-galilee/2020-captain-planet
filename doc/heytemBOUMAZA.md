@@ -14,7 +14,7 @@
 1. **Période de temps 17 mars-2 avril :** Conception et implémentation de l'interface de l'application. 
     
 
-1. **Période de temps 2 avril-15 avril :** Gestion des notifications d'applications. 
+1. **Période de temps 2 avril-15 avril :** Gestion des notifications d'application. 
 
 
 ### Connaissances acquises :
