@@ -19,5 +19,8 @@
 
 ### Connaissances acquises :
 
+1. Utilisation du module WiFi dans nodemcu pour envoyer des données sur des réseaux WiFi. 
+1. Utilisation des capteurs de la famille MQ et DHT. 
+1. Déclenchement et gestion des notifications sous Android. 
 
      
