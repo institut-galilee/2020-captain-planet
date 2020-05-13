@@ -33,12 +33,7 @@ public class Main2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        //Toolbar toolbar = findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-        //getSupportActionBar().setTitle("Evolutions des résultats");
-       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-       // getSupportActionBar().setDisplayShowHomeEnabled(true);
-
+        
         wv4 = findViewById(R.id.webview4);
         wv4.setInitialScale(250);
         wv4.getSettings().setJavaScriptEnabled(true);
