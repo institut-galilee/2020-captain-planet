@@ -72,7 +72,12 @@ public class MainActivity extends AppCompatActivity
        WorkManager mWorkManager = WorkManager.getInstance();
        PeriodicWorkRequest mPerdiodicWorkRequest =new  PeriodicWorkRequest.Builder(NotificationsWorker.class,15, TimeUnit.MINUTES).build();
        mWorkManager.enqueue(mPerdiodicWorkRequest);
+
+
          usingCountDownTimer();
+         //startService();
+
+
 
     }
 
@@ -85,6 +90,8 @@ public class MainActivity extends AppCompatActivity
                 getAirQualityRecord();
                 getHumidityRecord();
                 getTemperatureRecord();
+
+                //Toast.makeText(getApplicationContext(),"i ran",Toast.LENGTH_LONG).show();
             }
 
             public void onFinish() {
@@ -322,6 +329,63 @@ public class MainActivity extends AppCompatActivity
                                 Toast.makeText(getApplicationContext(),"Air quality  ="+jojo.getString("field3"),Toast.LENGTH_LONG).show();}
                             }
 
+                          /*  for(int i=0; i<feeds.length();i++){
+                                JSONObject jo = feeds.getJSONObject(i);
+                                String l=jo.getString("field1");
+                                 String air_quality = jo.getString("field1");
+                                 String temperature = jo.getString("field2");
+                                 String humidity = jo.getString("field3");}*/
+
+                            //JSONObject objLast = new JSONObject(response);
+                            //String dateDonnee = objLast.getString("created_at");
+                            //String replace1=dateDonnee.replaceAll("T"," ");
+                           // String dateLast=replace1.replaceAll("Z"," ");
+                           /* String air_quality = response.getString("field1");
+                            String temperature = response.getString("field2");
+                            String humidity = response.getString("field3");
+                            float pm25LastValue = Float.parseFloat(air_quality);
+                            Toast.makeText(getApplicationContext(),"Values her :"+air_quality+""+temperature,Toast.LENGTH_LONG).show();
+
+                           // t1.setText("Date de la capture:     " + dateLast);
+                            t2.setText("Température (en C°):     " + temperature + " \u2103");
+                            t3.setText("Humidité:     " + humidity + " %");
+                            t4.setText("PM2.5:  " + air_quality + " μg/m3");
+
+//                            float temp2 =Float.parseFloat(tempLast);
+//                            temp2=temp2*10;
+//                            cg_temp.setValue((int)temp2);
+
+                            if(0.0 <=pm25LastValue && pm25LastValue<= 15.4) {
+                                t5.setText("Qualité de l'air : Bonne");
+                                t5.setTextColor(0xff000000);   //black
+                                t5.setBackgroundColor(0xff32cd32); //limegreen
+                            }
+                            else if(15.5 <=pm25LastValue && pm25LastValue<= 35.4) {
+                                t5.setText("Qualité de l'air : Moyenne");
+                                t5.setTextColor(0xff000000);
+                                t5.setBackgroundColor(0xffcdcd00);   //yellow3
+                            }
+                            else if(35.5 <=pm25LastValue && pm25LastValue<= 54.4) {
+                                t5.setText("Qualité de l'air :Mauvaise!");
+                                t5.setTextColor(0xff000000);
+                                t5.setBackgroundColor(0xffee9a00); //orange2
+                            }
+                            else if(54.5 <=pm25LastValue && pm25LastValue<= 150.4) {
+                                t5.setText("Qualité de l'air :Très Mauvaise!!");
+                                t5.setTextColor(0xff000000);   //
+                                t5.setBackgroundColor(0xffee0000); //red2
+                            }
+                            else if(150.5 <=pm25LastValue && pm25LastValue<= 250.4) {
+                                t5.setText("Très Mauvaise pour la santé!!");
+                                t5.setTextColor(0xffffffff);   //white
+                                t5.setBackgroundColor(0xff8b008b); //Magenta4
+                            }
+                            else if(250.5 <=pm25LastValue) {
+                                t5.setText("Qualité de l'air :Dangereux!!");
+                                t5.setTextColor(0xffffffff);   //white
+                                t5.setBackgroundColor(0xff8b1a1a); //firebrick4
+                            }*/
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(getApplicationContext(),"exception message :"+e.getMessage(),Toast.LENGTH_LONG).show();
@@ -380,12 +444,12 @@ public class MainActivity extends AppCompatActivity
                             ppm_indicator.setVisibility(View.VISIBLE);
 
 
-                            if(f <3){
+                            if(f <100){
                              setSafetyLevel();
-                            }else if (f >3){
+                            }else if (f >100){
                                 setDangerousLevel();
                             }
-                          
+                            //Toast.makeText(getApplicationContext(),""+object1.getString("field1"),Toast.LENGTH_LONG).show();
                             break ;
                         }
 
@@ -394,10 +458,14 @@ public class MainActivity extends AppCompatActivity
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            //Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+            //Log.d("response",response.toString());
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+               // Toast.makeText(getApplicationContext(),"exception"+error.getMessage(),Toast.LENGTH_LONG).show();
+               // Log.d("error", "onErrorResponse: ");;
             }
         });
 
@@ -421,10 +489,11 @@ public class MainActivity extends AppCompatActivity
                             temp_progress_bar.setVisibility(View.INVISIBLE);
                             temperature_text.setText(new DecimalFormat("###.###").format(f));
                             c_indicator.setVisibility(View.VISIBLE);
-                            f = Float.parseFloat(fromCelciusToFeh(Float.parseFloat(object1.getString("field2"))));
-                            temperature_text_f.setText(new DecimalFormat("###.###").format(f));
+                            float f2 = Float.parseFloat(fromCelciusToFeh(Float.parseFloat(object1.getString("field2"))));
+                            temperature_text_f.setText(new DecimalFormat("###.###").format(f2));
                             f_indicator.setVisibility(View.VISIBLE);
-                            if(f<10 || f>30){
+                            //Toast.makeText(getApplicationContext(),""+
+                            if(f<10 || f>32){
                                 setDangerousLevel();
                             }
                             break ;
@@ -435,10 +504,14 @@ public class MainActivity extends AppCompatActivity
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                //Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+                //Log.d("response",response.toString());
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                // Toast.makeText(getApplicationContext(),"exception"+error.getMessage(),Toast.LENGTH_LONG).show();
+                // Log.d("error", "onErrorResponse: ");;
             }
         });
 
@@ -463,7 +536,8 @@ public class MainActivity extends AppCompatActivity
                             humi_progress_bar.setVisibility(View.INVISIBLE);
                             humidity_text.setText(new DecimalFormat("###.###").format(f));
                             h_indicator.setVisibility(View.VISIBLE);
-                            if(f<30 || f>50){
+                            //Toast.makeText(getApplicationContext(),""+object1.getString("field1"),Toast.LENGTH_LONG).show();
+                            if(f<30 || f>65){
                                 setDangerousLevel();
                             }
                             break ;
@@ -474,10 +548,14 @@ public class MainActivity extends AppCompatActivity
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                //Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+                //Log.d("response",response.toString());
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                // Toast.makeText(getApplicationContext(),"exception"+error.getMessage(),Toast.LENGTH_LONG).show();
+                // Log.d("error", "onErrorResponse: ");;
             }
         });
 
@@ -499,8 +577,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onStart(){
         super.onStart();
+        //usingCountDownTimer();
+
     }
-    
     @Override
     public void onPause(){
         super.onPause();
@@ -511,6 +590,28 @@ public class MainActivity extends AppCompatActivity
 
         }
     }
+ /*class NotificationsWorker extends Worker {
+     public NotificationsWorker(
+             @NonNull Context context,
+             @NonNull WorkerParameters params) {
+         super(context, params);
+     }
+
+     @Override
+     public Result doWork() {
+         // Do the work here--in this case, upload the images.
+        // usingCountDownTimer();
+         Toast.makeText(getApplicationContext(),"im in the background",Toast.LENGTH_SHORT).show();
+
+         // Indicate whether the task finished successfully with the Result
+         return Result.success();
+     }
+
+
+
+ }*/
+
+
 
  public class NotificationsService extends IntentService{
         public NotificationsService (String name){
