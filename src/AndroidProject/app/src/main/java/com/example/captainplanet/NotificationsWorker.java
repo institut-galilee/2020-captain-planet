@@ -61,8 +61,10 @@ public class NotificationsWorker extends Worker {
 
                             float f = Float.parseFloat(object1.getString("field1"));
 
-                            if(f > 2){
+                            if(f > 100){
                               prepareNotifications(""+f,0);
+                            }else{
+                                prepareNotifications(""+f,6);
                             }
                             //Toast.makeText(getApplicationContext(),""+object1.getString("field1"),Toast.LENGTH_LONG).show();
                             break ;
@@ -107,6 +109,8 @@ public class NotificationsWorker extends Worker {
                                prepareNotifications(""+f,1);
                            }else if (f>30){
                                prepareNotifications(""+f,1);
+                           }else{
+                               prepareNotifications(""+f,7);
                            }
                             //Toast.makeText(getApplicationContext(),""+object1.getString("field1"),Toast.LENGTH_LONG).show();
                             break ;
@@ -147,10 +151,12 @@ public class NotificationsWorker extends Worker {
                         if(!object1.getString("field3").equals("null")){
                            String s=object1.getString("field3");
                             float f = Float.parseFloat(s);
-                            if(f>50){
+                            if(f>65){
                                 prepareNotifications(""+f,2);
                             }else if(f<30){
                                 prepareNotifications(""+f,2);
+                            }else{
+                                prepareNotifications(""+f,8);
                             }
                             //Toast.makeText(getApplicationContext(),""+object1.getString("field1"),Toast.LENGTH_LONG).show();
                             break ;
@@ -236,6 +242,40 @@ public class NotificationsWorker extends Worker {
                 // notificationId is a unique int for each notification that you must define
                 notificationManager.notify(2, builder.build());
                 break;
+
+            case 6 :
+                //air quality safe notification
+                builder.setSmallIcon(R.drawable.air_quality_icon)
+                        .setContentTitle("air quality is safe")
+                        .setContentText("air quality level at: "+text)
+                        .setStyle(new NotificationCompat.BigTextStyle()
+                                .bigText("air quality level at: "+text))
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT).setContentIntent(pendingIntent).setAutoCancel(true);
+                // notificationId is a unique int for each notification that you must define
+                notificationManager.notify(3, builder.build());
+
+            case 7 :
+                //temperature safe notification
+                builder.setSmallIcon(R.drawable.temperature_icon)
+                        .setContentTitle("temperature is safe")
+                        .setContentText("temperature level at: "+text)
+                        .setStyle(new NotificationCompat.BigTextStyle()
+                                .bigText("temperature level at: "+text))
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT).setContentIntent(pendingIntent).setAutoCancel(true);
+                // notificationId is a unique int for each notification that you must define
+                notificationManager.notify(4, builder.build());
+
+            case 8 :
+                //humidity safe notification
+                builder.setSmallIcon(R.drawable.humidity_icon)
+                        .setContentTitle("humidity is  safe")
+                        .setContentText("humidity level at: "+text)
+                        .setStyle(new NotificationCompat.BigTextStyle()
+                                .bigText("humidity level at: "+text))
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT).setContentIntent(pendingIntent).setAutoCancel(true);
+                // notificationId is a unique int for each notification that you must define
+                notificationManager.notify(5, builder.build());
+                break;
         }
 
 
@@ -247,11 +287,6 @@ public class NotificationsWorker extends Worker {
         getAirQualityRecord();
         getHumidityRecord();
         getTemperatureRecord();
-        // Do the work here--in this case, upload the images.
-        // usingCountDownTimer();
-        //Toast.makeText(TimeL,"im in the background",Toast.LENGTH_SHORT).show();
-
-        // Indicate whether the task finished successfully with the Result
         return Result.success();
     }
 }
