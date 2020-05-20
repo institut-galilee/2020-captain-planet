@@ -11,7 +11,7 @@ Après avoir réfléchi sur la manière de récuperer les données détectées, 
 - [Page Principale](https://github.com/institut-galilee/2020-captain-planet/blob/master/src/AndroidProject/app/src/main/java/com/example/captainplanet/MainActivity.java), qui récupere les fichiers de données captées en json, fourni par notre channel de **Thingspeak**, et affiche les informations de données capturées par la station, en s'inspirant des tutoriels disponsibles.
  - [Page de graphes de données](https://github.com/institut-galilee/2020-captain-planet/blob/master/src/AndroidProject/app/src/main/java/com/example/captainplanet/Main2Activity.java), qui se charge d'afficher l'évolution des données captées sous forme de graphe.
 
-Enfin, j'ai travaillé avec Heytem pour le rédaction du [rapport](https://github.com/institut-galilee/2020-captain-planet/blob/master/doc/Rapport_Final_IOT.pdf) et la video de présentation.
+Enfin, j'ai travaillé avec Heytem pour le rédaction du [rapport](https://github.com/institut-galilee/2020-captain-planet/blob/master/doc/report.pdf) et la video de présentation.
 
 
 ## Les connaissances acquises
